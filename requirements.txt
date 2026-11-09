@@ -1,0 +1,10 @@
+pandas
+numpy
+matplotlib
+requests
+yfinance
+python-dotenv
+ipykernel
+# usados só em testes.py para executar o programa como notebook
+nbformat
+nbclient
