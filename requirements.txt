@@ -1,10 +1,7 @@
 pandas
 numpy
 matplotlib
+# só para refazer a coleta (preparacao_dados/gerar_dados.py)
 requests
 yfinance
 python-dotenv
-ipykernel
-# usados só em testes.py para executar o programa como notebook
-nbformat
-nbclient

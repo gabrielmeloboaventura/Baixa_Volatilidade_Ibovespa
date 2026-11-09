@@ -1,34 +1,34 @@
-# Fator Baixa Volatilidade na B3
+# Fator Baixa Volatilidade no Ibovespa
 
-Trabalho de programação: seleciona as 10 ações do Ibovespa de março de 2024 com menor volatilidade de 252 pregões, simula buy and hold de 28/03/2024 a 01/07/2026 e compara com Ibovespa e CDI.
+Trabalho de programação sobre Factor Investing. O programa escolhe as 10 ações do Ibovespa (carteira de jan-abr/2024) com menor volatilidade histórica, usando só dados até 27/03/2024. Depois simula a compra de R$ 100.000 em 28/03/2024, com pesos iguais, e mantém até 01/07/2026 (buy and hold). O resultado é comparado com o Ibovespa e o CDI.
 
 ## Como rodar
 
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-.venv/bin/python inicio.py     # gera resultados/
-.venv/bin/python testes.py     # verificações
+.venv/bin/pip install pandas numpy matplotlib
+.venv/bin/python baixa_volatilidade.py
 ```
 
-No VS Code: abra `inicio.py`, escolha o Python de `.venv` e use **Run Cell** nas células `# %%`. As tabelas e os gráficos aparecem na janela interativa.
+No VS Code, também dá para abrir `baixa_volatilidade.py` e rodar célula por célula (**Run Cell**).
 
-O relatório fica em `resultados/relatorio.html`. Os dados baixados estão em `dados/brutos/`, então o programa roda sem internet.
+Os gráficos e as tabelas são salvos em `resultados/`.
 
 ## Arquivos
 
-| Arquivo | Função |
+| Arquivo | O que é |
 |---|---|
-| `inicio.py` | Programa principal, em células |
-| `config.py` | Datas e parâmetros |
-| `coleta.py` | Busca os dados nas fontes |
-| `calculos.py` | Volatilidade, filtros, ranking, carteira e indicadores |
-| `graficos.py` | Gráficos |
-| `relatorio.py` | Relatório HTML |
-| `testes.py` | Testes sintéticos, conferência dos dados reais e execução no Jupyter |
-| `dados/correcoes_proventos.csv` | Proventos corrigidos, com fonte e motivo |
-| `dados/proventos_complementares.csv` | Proventos dos ativos sem provedor |
+| `baixa_volatilidade.py` | **O programa.** Volatilidade, filtros, ranking, carteira, indicadores e gráficos |
+| `dados/` | Dados prontos para uso: universo, preços ajustados, volume, CDI e Ibovespa |
+| `resultados/` | Gráficos e tabelas gerados pelo programa |
+| `preparacao_dados/` | Como os dados de `dados/` foram coletados e corrigidos. Não precisa rodar |
 
-## Chave da brapi (opcional)
+## De onde vêm os dados
 
-Copie `.env.example` para `.env` e preencha `BRAPI_TOKEN`. Só o plano Pro libera o histórico completo. Para refazer a coleta, apague os arquivos `brapi_*.csv` de `dados/brutos/`. Os números podem mudar um pouco.
+- **Composição do Ibovespa de jan-abr/2024:** B3.
+- **Fechamento e volume financeiro:** arquivo oficial de cotações da B3 (COTAHIST).
+- **Proventos e desdobramentos:** brapi (PETR4, VALE3, ITUB4 e MGLU3) e Yahoo Finance, com correções conferidas na Fundamentus. Cada correção está em `preparacao_dados/dados/correcoes_proventos.csv`, com a fonte.
+- **CDI:** Banco Central, série SGS 12.
+- **Ibovespa:** B3.
+
+A preparação ficou separada porque o Yahoo tinha preços e proventos errados, e corrigir isso exige bastante código. Para refazer a coleta, rode `python preparacao_dados/gerar_dados.py`. Isso exige `requests`, `yfinance` e `python-dotenv`.

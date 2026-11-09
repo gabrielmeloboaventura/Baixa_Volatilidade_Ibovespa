@@ -8,10 +8,9 @@ from pathlib import Path
 import pandas as pd
 
 # Pastas do projeto
-PASTA_PROJETO = Path(__file__).resolve().parent
+PASTA_PROJETO = Path(__file__).resolve().parent  # pasta preparacao_dados
 PASTA_DADOS = PASTA_PROJETO / "dados"
 PASTA_BRUTOS = PASTA_DADOS / "brutos"
-PASTA_RESULTADOS = PASTA_PROJETO / "resultados"
 
 # Datas do estudo
 INICIO_HISTORICO = pd.Timestamp("2023-01-02")  # início do histórico usado na seleção
