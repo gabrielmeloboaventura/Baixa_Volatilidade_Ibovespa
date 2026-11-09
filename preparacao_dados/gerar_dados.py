@@ -7,8 +7,9 @@
 #   2. Monta o preço ajustado por proventos e desdobramentos de cada ação:
 #      brapi quando liberada, senão fechamento oficial + proventos do Yahoo,
 #      com as correções de dados/correcoes_proventos.csv (cada uma com fonte).
-#   3. Junta códigos que mudaram (ex.: TRPL4 virou ISAE4) e trata a conversão
-#      da Copel (CPLE6 em CPLE3 + resgate de R$ 0,7749 em novembro de 2025).
+#   3. Junta códigos que mudaram (ex.: TRPL4 virou ISAE4), trata a conversão
+#      da Copel (CPLE6 em CPLE3 + resgate de R$ 0,7749 em novembro de 2025) e as
+#      incorporações de dados/incorporacoes.csv (BRFS3 pela Marfrig em 2025).
 #   4. Baixa o CDI do Banco Central e o Ibovespa oficial da B3.
 #
 # Uso: python preparacao_dados/gerar_dados.py
@@ -36,6 +37,19 @@ calendario = calendario[(calendario >= INICIO_HISTORICO) & (calendario <= DATA_F
 
 precos, origem = calculos.montar_precos(universo, mapa, cotacoes, calendario, coleta.carregar_correcoes_proventos(),
                                         coleta.carregar_proventos_complementares(), DATA_FINAL)
+# Incorporações: depois do último pregão, a ação vira ações da empresa que a incorporou.
+# O valor da posição passa a seguir o preço ajustado do sucessor, na proporção da troca.
+incorporacoes = pd.read_csv(Path(__file__).resolve().parent / "dados/incorporacoes.csv", parse_dates=["ultimo_pregao"])
+for _, linha in incorporacoes.iterrows():
+    ticker, sucessor, ultimo = linha["ticker"], linha["sucessor"], linha["ultimo_pregao"]
+    fechamento = calculos.fechamento_oficial(ticker, mapa, cotacoes, calendario)["fechamento"].loc[ultimo]
+    fechamento_sucessor = calculos.fechamento_oficial(sucessor, mapa, cotacoes, calendario)["fechamento"].loc[ultimo]
+    troca = linha["proporcao"] * fechamento_sucessor / fechamento   # valor recebido por real investido
+    depois = precos.index > ultimo
+    precos.loc[depois, ticker] = (precos.loc[ultimo, ticker] * troca
+                                  * precos.loc[depois, sucessor] / precos.loc[ultimo, sucessor])
+    print(f"{ticker} incorporada por {sucessor} em {ultimo:%d/%m/%Y} (troca vale {troca:.4f} da posição)")
+
 volume = pd.DataFrame({t: calculos.fechamento_oficial(t, mapa, cotacoes, calendario)["volume_financeiro"]
                        for t in universo["ticker"]})
 

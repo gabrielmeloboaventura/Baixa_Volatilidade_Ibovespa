@@ -27,7 +27,7 @@ CRFB3,CRFB3,B3 COTAHIST + proventos complementares,exige token,0,3
 CSAN3,CSAN3,B3 COTAHIST + proventos Yahoo,exige token,1,0
 CSNA3,CSNA3,B3 COTAHIST + proventos Yahoo,exige token,0,0
 CVCB3,CVCB3,B3 COTAHIST + proventos Yahoo,exige token,1,0
-CYRE3,CYRE3,B3 COTAHIST + proventos Yahoo,exige token,0,0
+CYRE3,CYRE3,B3 COTAHIST + proventos Yahoo,exige token,0,1
 DXCO3,DXCO3,B3 COTAHIST + proventos Yahoo,exige token,0,0
 EGIE3,EGIE3,B3 COTAHIST + proventos Yahoo,exige token,0,0
 ELET3,AXIA3,B3 COTAHIST + proventos Yahoo,exige token,5,0
@@ -52,7 +52,7 @@ KLBN11,KLBN11,B3 COTAHIST + proventos Yahoo,exige token,42,0
 LREN3,LREN3,B3 COTAHIST + proventos Yahoo,exige token,3,0
 LWSA3,LWSA3,B3 COTAHIST + proventos Yahoo,exige token,0,0
 MGLU3,MGLU3,brapi (adjustedClose),cache local,0,0
-MRFG3,MBRF3,B3 COTAHIST + proventos Yahoo,exige token,0,0
+MRFG3,MBRF3,B3 COTAHIST + proventos Yahoo,exige token,0,1
 MRVE3,MRVE3,B3 COTAHIST + proventos Yahoo,exige token,0,0
 MULT3,MULT3,B3 COTAHIST + proventos Yahoo,exige token,0,0
 NTCO3,NTCO3,B3 COTAHIST + proventos complementares,exige token,0,2
