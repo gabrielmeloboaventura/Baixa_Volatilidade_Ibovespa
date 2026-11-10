@@ -14,11 +14,26 @@ No VS Code, também dá para abrir `baixa_volatilidade.py` e rodar célula por c
 
 Os gráficos e as tabelas são salvos em `resultados/`.
 
+## Carteira do grupo
+
+O arquivo `carteira_grupo.py` junta as 10 ações de cada um dos quatro fatores do grupo (Baixa Volatilidade, Valor, Momentum e Qualidade) em uma carteira única: R$ 25.000 por fator e R$ 2.500 por ação, somando quando a mesma ação aparece em mais de um fator. A carteira é comprada em 28/03/2024, mantida até 01/07/2026 e comparada com o Ibovespa e o CDI. Os resultados ficam em `resultados_grupo/`.
+
+```bash
+.venv/bin/python carteira_grupo.py
+```
+
+Repositórios dos outros fatores:
+- Valor: https://github.com/nelep-e/fator-valor-ibovespa
+- Momentum: https://github.com/LeonardoMedeirosA/Momentum_Ibovespa
+- Qualidade: https://github.com/GustavodaCosta0502/P2---Laerte
+
 ## Arquivos
 
 | Arquivo | O que é |
 |---|---|
 | `baixa_volatilidade.py` | **O programa.** Volatilidade, filtros, ranking, carteira, indicadores e gráficos |
+| `carteira_grupo.py` | Carteira única do grupo com os quatro fatores |
+| `resultados_grupo/` | Gráficos e tabelas da carteira do grupo |
 | `dados/` | Dados prontos para uso: universo, preços ajustados, volume, CDI e Ibovespa |
 | `resultados/` | Gráficos e tabelas gerados pelo programa |
 | `preparacao_dados/` | Como os dados de `dados/` foram coletados e corrigidos. Não precisa rodar |
